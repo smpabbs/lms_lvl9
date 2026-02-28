@@ -19,8 +19,8 @@ const CONFIG = {
   // 1. Buat project di https://supabase.com
   // 2. Salin Project URL  → SUPABASE_URL
   // 3. Salin anon/public key → SUPABASE_ANON_KEY
-  SUPABASE_URL     : '',    // contoh: 'https://xyzxyz.supabase.co'
-  SUPABASE_ANON_KEY: '',    // contoh: 'eyJhbGciOiJIUzI1NiIsInR5cCI6...'
+  SUPABASE_URL     : 'https://gwafrmzomwjyboxeosal.supabase.co',    // contoh: 'https://xyzxyz.supabase.co'
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3YWZybXpvbXdqeWJveGVvc2FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNjUzODcsImV4cCI6MjA4Nzc0MTM4N30.UwHisvaqdPFTzJkK5t2drynWcII38-iV89Eef9t6VO0',
 };
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
