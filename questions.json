@@ -633,12 +633,12 @@
       "type": "pg",
       "subject": "Science",
       "points": 2,
-      "question": "24. What is the balanced chemical equation for the reaction between sodium and chlorine gas?\n\na. 2Na (s) + Cl₂ (g) → NaCl (s)\nb. Na (s) + Cl₂ (g) → NaCl (s)\nc. Na (s) + 2Cl₂ (g) → NaCl (s)\nd. 2Na (s) + Cl₂ (g) → 2NaCl (s)",
+      "question": "24. What is the balanced chemical equation for the reaction between sodium and chlorine gas?\n\na. 2Na (s) + Cl₂ (g) → NaCl (s)\nb. Na (s) + Cl₂ (g) → NaCl (s)\nc. Na (s) + 2Cl₂ (g) → NaCl (s)\nd. 2Na (s) + 2Cl₂ (g) → 2NaCl (s)",
       "options": [
         "a. 2Na (s) + Cl₂ (g) → NaCl (s)",
         "b. Na (s) + Cl₂ (g) → NaCl (s)",
         "c. Na (s) + 2Cl₂ (g) → NaCl (s)",
-        "d. 2Na (s) + Cl₂ (g) → 2NaCl (s)"
+        "d. 2Na (s) + 2Cl₂ (g) → 2NaCl (s)"
       ],
       "answer": "3"
     },
