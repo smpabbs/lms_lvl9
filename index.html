@@ -35,7 +35,7 @@
   <div class="login-wrap">
 
     <!-- Art panel kiri -->
-<div class="login-art">
+    <div class="login-art">
       <div class="art-logo">
         <div class="art-logo-icon">📐</div>
         <div class="art-logo-title">ExamFILQ'S</div>
@@ -44,7 +44,7 @@
       <div class="art-features">
         <div class="art-feat">
           <div class="art-feat-icon" style="background:rgba(20,184,166,.15)">⏱️</div>
-          <div class="art-feat-text">PTS 2 Science Level 9</div>
+          <div class="art-feat-text">PTS 2 Science Level 7</div>
         </div>
         <div class="art-feat">
           <div class="art-feat-icon" style="background:rgba(245,158,11,.15)">🚩</div>
@@ -57,11 +57,12 @@
       </div>
     </div>
 
-
     <!-- Form panel kanan -->
     <div class="login-card">
       <h2>Mulai Ujian</h2>
-      <p class="login-sub">Isi data diri Anda sebelum memulai</p>
+      <p class="login-sub">Isi data diri Anda sebelum memulai
+        <br> GUNAKAN NAMA LENGKAP
+      </p>
 
       <div class="form-group">
         <label class="form-label" for="input-name">Nama Lengkap</label>
@@ -79,12 +80,12 @@
         <label class="form-label" for="input-kelas">Kelas</label>
         <select id="input-kelas" class="form-input">
             <option value="">— Pilih Kelas —</option>
-            <option>9A</option>
-            <option>9B</option>
-            <option>9C</option>
-            <option>9D</option>
-            <option>9E</option>
-            <option>9F</option>
+            <option>7A</option>
+            <option>7B</option>
+            <option>7C</option>
+            <option>7D</option>
+            <option>7E</option>
+            <option>7F</option>
         </select>
         <!-- <input
           type="text"
@@ -111,6 +112,23 @@
     </div>
 
   </div>
+
+  <!-- Banner lanjutkan sesi tersimpan -->
+  <div id="resume-banner" class="resume-banner" style="display:none">
+    <div class="resume-icon">🔄</div>
+    <div class="resume-info">
+      <div class="resume-title">Sesi ujian ditemukan!</div>
+      <div class="resume-detail">
+        <span id="resume-name"></span> &middot; Kelas <span id="resume-kelas"></span>
+        &middot; Sisa waktu <strong id="resume-time"></strong>
+      </div>
+    </div>
+    <div class="resume-actions">
+      <button class="resume-btn-continue" onclick="resumeSession()">▶ Lanjutkan</button>
+      <button class="resume-btn-discard" onclick="clearProgress();checkSavedProgress()">✕ Hapus</button>
+    </div>
+  </div>
+
 </div><!-- /screen-login -->
 
 

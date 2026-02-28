@@ -21,6 +21,7 @@ const CONFIG = {
   // 3. Salin anon/public key → SUPABASE_ANON_KEY
   SUPABASE_URL     : 'https://gwafrmzomwjyboxeosal.supabase.co',    // contoh: 'https://xyzxyz.supabase.co'
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd3YWZybXpvbXdqeWJveGVvc2FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNjUzODcsImV4cCI6MjA4Nzc0MTM4N30.UwHisvaqdPFTzJkK5t2drynWcII38-iV89Eef9t6VO0',
+
 };
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
@@ -71,6 +72,7 @@ function setLoading(show, text = 'Memuat soal...') {
 // ─── INIT ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   showScreen('screen-login');
+  checkSavedProgress();  // tampilkan banner resume jika ada sesi tersimpan
   document.addEventListener('keydown', e => {
     if (e.key === 'Enter' && $('screen-login').classList.contains('active')) startExam();
   });
@@ -90,8 +92,9 @@ async function startExam() {
 
   setLoading(true, 'Memuat soal...');
   try {
-    // Soal di-embed langsung (tidak perlu fetch file eksternal)
-    const data = JSON.parse(`{"config": {"timer_minutes": 90}, "glossary": [{"term": "Above", "definition": "Di atas"}, {"term": "Accelerates", "definition": "Mempercepat"}, {"term": "Altered", "definition": "Berubah"}, {"term": "Another", "definition": "Lain"}, {"term": "Attract", "definition": "Menarik"}, {"term": "Attracted", "definition": "Tertarik"}, {"term": "Avoid", "definition": "Menghindari"}, {"term": "Balanced", "definition": "Seimbang"}, {"term": "Bonds", "definition": "Ikatan"}, {"term": "Broken", "definition": "Patah"}, {"term": "Brought", "definition": "Dibawa"}, {"term": "Carrying", "definition": "Membawa"}, {"term": "Changes", "definition": "Perubahan"}, {"term": "Changing", "definition": "Mengubah"}, {"term": "Coil", "definition": "Kumparan"}, {"term": "Comply", "definition": "Mematuhi"}, {"term": "Compound", "definition": "Senyawa"}, {"term": "Conducting", "definition": "Menjalankan"}, {"term": "Considered", "definition": "Dipertimbangkan"}, {"term": "Context", "definition": "Konteks"}, {"term": "Damaging", "definition": "Merusak"}, {"term": "Decreases", "definition": "Berkurang"}, {"term": "Differ", "definition": "Beda"}, {"term": "Difference", "definition": "Perbedaan"}, {"term": "Direction", "definition": "Arah"}, {"term": "Disappear", "definition": "Hilang"}, {"term": "Dropping", "definition": "Menjatuhkan"}, {"term": "Each", "definition": "Masing-masing"}, {"term": "Eliminated", "definition": "Dihilangkan"}, {"term": "Evidence", "definition": "Bukti"}, {"term": "Exactly", "definition": "Tepat"}, {"term": "Flowing", "definition": "Mengalir"}, {"term": "Forming", "definition": "Membentuk"}, {"term": "General", "definition": "Umum"}, {"term": "Glucose", "definition": "Glukosa"}, {"term": "Greater", "definition": "Lebih Besar"}, {"term": "Happen", "definition": "Terjadi"}, {"term": "Harmless", "definition": "Tidak Berbahaya"}, {"term": "Hitting", "definition": "Memukul"}, {"term": "Induction", "definition": "Induksi"}, {"term": "Involve", "definition": "Melibatkan"}, {"term": "Irreversible", "definition": "Tidak dapat dibalik"}, {"term": "Keeping", "definition": "Menjaga"}, {"term": "Main", "definition": "Utama"}, {"term": "Migratory", "definition": "Migrasi"}, {"term": "Needle", "definition": "Jarum"}, {"term": "Occur", "definition": "Terjadi"}, {"term": "Occurred", "definition": "Terjadi"}, {"term": "Occurs", "definition": "Terjadi"}, {"term": "Other", "definition": "Lainnya"}, {"term": "Oxidation", "definition": "Oksidasi"}, {"term": "Passing", "definition": "Lewat"}, {"term": "Pieces", "definition": "Potongan"}, {"term": "Precipitate", "definition": "Mengendap"}, {"term": "Properties", "definition": "Sifat"}, {"term": "Reacts", "definition": "Bereaksi"}, {"term": "Releases", "definition": "Melepas"}, {"term": "Remain", "definition": "Tetap"}, {"term": "Repel", "definition": "Menolak"}, {"term": "Resulting", "definition": "Menghasilkan"}, {"term": "Return", "definition": "Kembali"}, {"term": "Reversed", "definition": "Dibalik"}, {"term": "Rotate", "definition": "Memutar"}, {"term": "Several", "definition": "Beberapa"}, {"term": "Shape", "definition": "Bentuk"}, {"term": "Slightly", "definition": "Sedikit"}, {"term": "Source", "definition": "Sumber"}, {"term": "Spoiled", "definition": "Busuk"}, {"term": "Steam", "definition": "Uap"}, {"term": "Strength", "definition": "Kekuatan"}, {"term": "Stroking", "definition": "Mengusap"}, {"term": "Strongly", "definition": "Sangat"}, {"term": "Subscripts", "definition": "Subskrip"}, {"term": "Substances", "definition": "Zat"}, {"term": "Synthesis", "definition": "Sintesis"}, {"term": "Through", "definition": "Melalui"}, {"term": "Torn", "definition": "Robek"}, {"term": "Undergoes", "definition": "Mengalami"}, {"term": "Ways", "definition": "Cara"}, {"term": "Without", "definition": "Tanpa"}], "questions": [{"type": "pg", "subject": "Science", "points": 2, "question": "1. Based on their response to a magnetic field, there are three types of magnetic materials, namely ferromagnetic, paramagnetic, and diamagnetic. The material that is strongly attracted to magnets and can become a magnet, namely ….", "options": ["a. ferromagnetic", "b. paramagnetic", "c. diamagnetic", "d. barmagnetic"], "answer": "0"}, {"type": "pg", "subject": "Science", "points": 2, "question": "2. The following material considered paramagnetic is ….", "options": ["a. iron", "b. aluminium", "c. wood", "d. plastic"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "3. These are some correct ways to make a magnet, except ….", "options": ["a. stroking", "b. heating", "c. induction", "d. electromagnetism"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "4. If the north pole of a magnet is brought close to the north pole of another magnet, what will happen?", "options": ["a. they cancel each other out", "b. they attract each other", "c. they repel each other", "d. they rotate to face south"], "answer": "2"}, {"type": "pg", "subject": "Science", "points": 2, "question": "5. Look at the picture. The correct direction of the following magnetic field lines is ….", "options": ["a. A", "b. B", "c. C", "d. D"], "answer": "1", "image": "soal5.png"}, {"type": "pg", "subject": "Science", "points": 2, "question": "6. Look at the picture. The image above shows 3 bar magnets. If C is the north pole, B and C repel each other, D and E attract each other, then the types of poles at A and F are ….", "options": ["a. A the north pole and F the south pole", "b. A the south pole and F the north pole", "c. A and F are the north poles", "d. A and F are the south poles"], "answer": "3", "image": "soal6.png"}, {"type": "pg", "subject": "Science", "points": 2, "question": "7. Look at the picture. Based on the image above, the poles of magnet A and B are ….", "options": ["a. A the north pole and B is the south pole", "b. A is the south pole and B is the north pole", "c. A and B are the north poles", "d. A dan B are the south poles"], "answer": "1", "image": "soal7.png"}, {"type": "pg", "subject": "Science", "points": 2, "question": "8. A compass needle points North because it is attracted to the ….", "options": ["a. the Earth's magnetic south pole", "b. the equator", "c. magnetic north pole", "d. the geographic north pole exactly"], "answer": "0"}, {"type": "pg", "subject": "Science", "points": 2, "question": "9. A wire 50 cm long is in a magnetic field of 20 T. If the current flowing is 5 A, then the Lorentz force is ….", "options": ["a. 5 N", "b. 50 N", "c. 500 N", "d. 5000 N"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "10. Pay attention to the following image. Based on the image, determine the value of the primary current is ….\\n\\n(Vp = 100 V, Vs = 50 V, Is = 0,4 A)", "options": ["a. 0,1 A", "b. 0,2 A", "c. 0,3 A", "d. 0,4 A"], "answer": "1", "image": "soal10.png"}, {"type": "pg", "subject": "Science", "points": 2, "question": "11. A step down transformator is connected to a voltage of 6000 volts. If the resulting electric current is 5 A and the electrical power in the secondary coil is 27.000 watt, determine the efficiency of the transformer….", "options": ["a. 75 %", "b. 85 %", "c. 90 %", "d. 111 %"], "answer": "2"}, {"type": "pg", "subject": "Science", "points": 2, "question": "12. Pay attention to the following table. The types of transformer P and Q are ….\\n\\nTransformer P: Primary voltage 110V, Secondary voltage 200V\\nTransformer Q: Primary voltage 220V, Secondary voltage 110V", "options": ["a. transformer P is step up and transformer Q is step down", "b. transformer Q is step up and transformer P is step down", "c. transformer P and transformer Q are step up", "d. transformer P and transformer Q are step down"], "answer": "0", "image": "soal12.png"}, {"type": "pg", "subject": "Science", "points": 2, "question": "13. The following events that are not chemical reactions are...", "options": ["a. iron rusting", "b. paper burning", "c. ice melting", "d. photosynthesis"], "answer": "2"}, {"type": "pg", "subject": "Science", "points": 2, "question": "14. What is the main difference between a physical change and a chemical change?", "options": ["a. color of the substance", "b. properties of the substance", "c. shape of the substance", "d. formation of a new substance"], "answer": "3"}, {"type": "pg", "subject": "Science", "points": 2, "question": "15. What is an example of a chemical change?", "options": ["a. cooking rice", "b. making water into ice", "c. mixing sugar with water", "d. freezing water"], "answer": "0"}, {"type": "pg", "subject": "Science", "points": 2, "question": "16. What is meant by a chemical reaction?", "options": ["a. change in the form of a substance", "b. change in the properties of a substance", "c. change in a substance that cannot be reversed", "d. change in the color of a substance"], "answer": "2"}, {"type": "pg", "subject": "Science", "points": 2, "question": "17. Pay attention to the following question.\\n\\nIn the reaction equation 2H₂ + O₂ → 2H₂O, the product is...\\na. H₂\\nb. O₂\\nc. H₂O\\nd. H₂ and O₂", "options": ["a. a", "b. b", "c. c", "d. d"], "answer": "2"}, {"type": "pg", "subject": "Science", "points": 2, "question": "18. What is the general form of a decomposition reaction?", "options": ["a. A + B → AB", "b. AB → A + B", "c. A → B", "d. A + B → C"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "19. The general formula for a synthesis reaction is shown by ….", "options": ["a. A + B → AB", "b. AB → A + B", "c. A → B", "d. A + B → C"], "answer": "0"}, {"type": "pg", "subject": "Science", "points": 2, "question": "20. What happens in a chemical decomposition reaction?", "options": ["a. a substance is broken down into new, more complex substances", "b. a substance is broken down into new, simpler substances", "c. a substance undergoes a color change", "d. a substance reacts to form a complex compound"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "21. What is meant by a reactant in a chemical reaction?", "options": ["a. a substance produced after the reaction", "b. a substance used before the reaction", "c. a substance that is irreversible", "d. a substance that can return to its original form"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "22. Which of the following is always involved in a combustion reaction?", "options": ["a. water", "b. oxygen", "c. carbon dioxide", "d. hydrogen"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "23. What happens in a combination or synthesis reaction?", "options": ["a. A substance decomposes into simpler substances", "b. Simple substances combine to form a new product", "c. The substance changes color", "d. The substance evaporates into a gas"], "answer": "1"}, {"type": "pg", "subject": "Science", "points": 2, "question": "24. What is the balanced chemical equation for the reaction between sodium and chlorine gas?\\n\\na. 2Na (s) + Cl₂ (g) → NaCl (s)\\nb. Na (s) + Cl₂ (g) → NaCl (s)\\nc. Na (s) + 2Cl₂ (g) → NaCl (s)\\nd. 2Na (s) + 2Cl₂ (g) → 2NaCl (s)", "options": ["a. 2Na (s) + Cl₂ (g) → NaCl (s)", "b. Na (s) + Cl₂ (g) → NaCl (s)", "c. Na (s) + 2Cl₂ (g) → NaCl (s)", "d. 2Na (s) + 2Cl₂ (g) → 2NaCl (s)"], "answer": "3"}, {"type": "pg", "subject": "Science", "points": 2, "question": "25. What is meant by corrosive in the context of chemistry?", "options": ["a. harmless", "b. friendly", "c. damaging and dangerous", "d. colorless"], "answer": "2"}, {"type": "cb", "subject": "Science", "points": 3, "question": "26. The following is the method to save physical magnets (keeping strength) are ….\\n\\nChoose ALL correct answers.", "options": ["a. use keepers", "b. hitting or dropping", "c. use AC current", "d. avoid metal and heat"], "answer": ["0", "3"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "27. If a bar magnet is cut into 2, the pieces will have the following properties, among other …\\n\\nChoose ALL correct answers.", "options": ["a. only has a south pole", "b. the piece is magnetic", "c. has a north pole and a south pole", "d. only has a north pole"], "answer": ["1", "2"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "28. The properties of magnets are….\\n\\nChoose ALL correct answers.", "options": ["a. has a north pole and a south pole", "b. can attract certain object, like iron", "c. like poles attract each other", "d. not has a magnetic field"], "answer": ["0", "1"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "29. The following materials considered diamagnetic are ….\\n\\nChoose ALL correct answers.", "options": ["a. gold", "b. nickel", "c. plastic", "d. cobalt"], "answer": ["0", "2"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "30. The correct statement about ferromagnetic material are ….\\n\\nChoose ALL correct answers.", "options": ["a. strongly attracted to magnet", "b. can become magnet", "c. an example of the object is wood", "d. not attracted by magnets"], "answer": ["0", "1"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "31. The correct example of physical and chemical changes is ….\\n\\nChoose ALL correct answers.", "options": ["a. water freezing into ice is a chemical change", "b. rusting iron is a chemical change", "c. burning wood produces a new substance", "d. cutting paper is a chemical reaction"], "answer": ["1", "2"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "32. The correct example of chemical reactions in daily life is ….\\n\\nChoose ALL correct answers.", "options": ["a. water heated until it boils is a chemical reaction", "b. ice melting to form a new substance", "c. photosynthesis produces a new substance in the form of glucose", "d. spoiled milk is the result of a chemical reaction"], "answer": ["2", "3"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "33. Types of Chemical Reactions are ….\\n\\nChoose ALL correct answers.", "options": ["a. decomposition reactions produce only one type of substance", "b. combustion reactions always involve oxygen", "c. synthesis reactions are the combination of several substances into a new substance", "d. the change of water into steam is considered a decomposition reaction"], "answer": ["1", "2"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "34. Examples of Reaction Energy & Experimental Evidence are ….\\n\\nChoose ALL correct answers.", "options": ["a. the formation of a precipitate indicates that no chemical reaction has occurred", "b. a solution that changes color only undergoes a physical change", "c. an exothermic reaction is characterized by a rise in the surrounding temperature because heat is released", "d. energy changes in chemical reactions occur due to the breaking and forming of chemical bonds"], "answer": ["2", "3"]}, {"type": "cb", "subject": "Science", "points": 3, "question": "35. Law of Conservation of Mass & Reaction Balancing is ….\\n\\nChoose ALL correct answers.", "options": ["a. in a chemical reaction in a closed system, the total mass of substances before and after the reaction remains constant", "b. if the coefficients are increased, then the total mass of substances after the reaction becomes greater than before the reaction", "c. reaction coefficients can be changed, but the chemical formulas of the substances must not be altered when balancing", "d. balancing a reaction is done by changing the subscripts (small numbers) in the chemical formulas"], "answer": ["0", "2"]}, {"type": "es", "subject": "Science", "points": 4, "question": "36. Mention 3 ways to eliminate magnetic properties!", "answer": null}, {"type": "es", "subject": "Science", "points": 4, "question": "37. Write a simple reaction equation for photosynthesis!", "answer": null}, {"type": "es", "subject": "Science", "points": 4, "question": "38. Look at the picture. Based on the image below, the poles of magnets 1, 2, 3, 4, 5, and 6 are ….\\n\\n(Gambar: Besi 1-2, Baja (elektromagnet), Besi 3-4, Besi 5-6)", "answer": null, "image": "soal38.png"}, {"type": "es", "subject": "Science", "points": 4, "question": "39. Mention 4 characteristics of a chemical reaction!", "answer": null}, {"type": "es", "subject": "Science", "points": 4, "question": "40. Ben and Cam are conducting a physics experiment in the laboratory. Ben measures the current passing through an electronic component with a resistance of 25 Ohm. The component is given a voltage of 5 volts. It turns out that the measured electric current is the same as the electric current passing through Cam's current-carrying wire. If the current-carrying wire is 2 m long and is in a 4 T magnetic field, determine the magnitude of the resulting Lorentz force!", "answer": null}]}`);
+    const res = await fetch(CONFIG.QUESTIONS_FILE);
+    if (!res.ok) throw new Error(`File ${CONFIG.QUESTIONS_FILE} tidak ditemukan.`);
+    const data = await res.json();
 
     if (!Array.isArray(data.questions) || data.questions.length === 0)
       throw new Error('Soal tidak ditemukan atau format JSON tidak valid.');
@@ -149,6 +152,7 @@ function initTimer() {
   state.timerRef = setInterval(() => {
     state.timeLeft--;
     updateTimerDisplay();
+    if (state.timeLeft % 10 === 0) saveProgress(); // simpan setiap 10 detik
     if (state.timeLeft <= 300) $('exam-timer').classList.add('warning');
     if (state.timeLeft <= 0) {
       clearInterval(state.timerRef);
@@ -306,6 +310,7 @@ function renderQuestion(index) {
 // ─── HANDLER JAWABAN ─────────────────────────────────────────────────────────
 function selectPG(qIndex, optIndex) {
   state.answers[qIndex] = String(optIndex);
+  saveProgress();
   renderQuestion(qIndex);
 }
 
@@ -316,8 +321,8 @@ function toggleCB(qIndex, optIndex) {
   const pos = arr.indexOf(key);
   if (pos === -1) arr.push(key);
   else arr.splice(pos, 1);
-  // Hapus jawaban jika tidak ada yang dipilih
   if (arr.length === 0) delete state.answers[qIndex];
+  saveProgress();
   renderQuestion(qIndex);
 }
 
@@ -326,6 +331,7 @@ function saveEssay(qIndex, val) {
   else state.answers[qIndex] = val;
   const counter = $(`essay-counter-${qIndex}`);
   if (counter) counter.textContent = `${val.length} karakter`;
+  saveProgress();
   syncNavGrid();
 }
 
@@ -335,6 +341,7 @@ function prevQuestion() { if (state.current > 0) renderQuestion(state.current - 
 
 function toggleFlag(i) {
   state.flagged.has(i) ? state.flagged.delete(i) : state.flagged.add(i);
+  saveProgress();
   renderQuestion(i);
 }
 
@@ -420,6 +427,7 @@ async function doSubmit(auto = false) {
 
   $('result-student-name').textContent  = state.student.name;
   $('result-student-kelas').textContent = state.student.kelas;
+  clearProgress();   // hapus progress setelah berhasil submit
   showScreen('screen-result');
 }
 
@@ -566,6 +574,120 @@ function saveLocal(payload) {
   } catch (e) { /* storage penuh */ }
 }
 
+// ─── AUTO-SAVE PROGRESS ───────────────────────────────────────────────────────
+const PROGRESS_KEY = 'examfilqs_progress';
+
+/** Simpan progress ujian saat ini ke localStorage */
+function saveProgress() {
+  if (state.submitted || !state.student.name) return;
+  try {
+    const data = {
+      student   : state.student,
+      answers   : state.answers,
+      flagged   : [...state.flagged],
+      current   : state.current,
+      timeLeft  : state.timeLeft,
+      savedAt   : Date.now(),
+    };
+    localStorage.setItem(PROGRESS_KEY, JSON.stringify(data));
+  } catch (e) { /* storage penuh */ }
+}
+
+/** Hapus progress (setelah submit atau kembali ke login) */
+function clearProgress() {
+  try { localStorage.removeItem(PROGRESS_KEY); } catch (e) {}
+}
+
+/** Muat progress tersimpan, kembalikan objek atau null */
+function loadProgress() {
+  try {
+    const raw = localStorage.getItem(PROGRESS_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    // Hitung sisa waktu yang sebenarnya (sudah berkurang sejak disimpan)
+    const elapsedSec = Math.floor((Date.now() - data.savedAt) / 1000);
+    data.timeLeft = Math.max(0, (data.timeLeft || 0) - elapsedSec);
+    return data;
+  } catch (e) { return null; }
+}
+
+/** Cek apakah ada sesi tersimpan dan tampilkan banner resume */
+function checkSavedProgress() {
+  const saved = loadProgress();
+  const banner = $('resume-banner');
+  if (!banner) return;
+  if (saved && saved.student?.name && saved.timeLeft > 0) {
+    $('resume-name').textContent  = saved.student.name;
+    $('resume-kelas').textContent = saved.student.kelas;
+    const mm = String(Math.floor(saved.timeLeft / 60)).padStart(2, '0');
+    const ss = String(saved.timeLeft % 60).padStart(2, '0');
+    $('resume-time').textContent  = `${mm}:${ss}`;
+    banner.style.display = 'flex';
+  } else {
+    banner.style.display = 'none';
+    clearProgress();
+  }
+}
+
+/** Lanjutkan sesi yang tersimpan */
+async function resumeSession() {
+  const saved = loadProgress();
+  if (!saved) return;
+
+  setLoading(true, 'Memuat soal...');
+  try {
+    const res  = await fetch(CONFIG.QUESTIONS_FILE);
+    if (!res.ok) throw new Error(`Gagal memuat ${CONFIG.QUESTIONS_FILE}`);
+    const data = await res.json();
+
+    state.questions = data.questions.filter(q => q.type === 'pg' || q.type === 'es' || q.type === 'cb');
+    state.glossary  = Array.isArray(data.glossary) ? data.glossary : [];
+    if (data.config?.timer_minutes !== undefined)
+      CONFIG.TIMER_MINUTES = Number(data.config.timer_minutes);
+
+    // Pulihkan state dari localStorage
+    state.student   = saved.student;
+    state.answers   = saved.answers  || {};
+    state.flagged   = new Set(saved.flagged || []);
+    state.current   = saved.current  || 0;
+    state.submitted = false;
+    state.startTime = new Date(Date.now() - (CONFIG.TIMER_MINUTES * 60 - saved.timeLeft) * 1000);
+
+    setLoading(false);
+
+    // Init UI tanpa reset answers
+    $('exam-user-name').textContent   = state.student.name;
+    $('exam-user-kelas').textContent  = state.student.kelas;
+    $('exam-user-avatar').textContent = state.student.name.charAt(0).toUpperCase();
+    buildNavGrid();
+    buildGlossary();
+    renderQuestion(state.current);
+
+    // Timer mulai dari sisa waktu
+    clearInterval(state.timerRef);
+    $('exam-timer').style.display = 'flex';
+    state.timeLeft = saved.timeLeft;
+    updateTimerDisplay();
+    state.timerRef = setInterval(() => {
+      state.timeLeft--;
+      updateTimerDisplay();
+      saveProgress();   // auto-save tiap detik
+      if (state.timeLeft <= 300) $('exam-timer').classList.add('warning');
+      if (state.timeLeft <= 0) {
+        clearInterval(state.timerRef);
+        showToast('error', '⏰', 'Waktu habis! Jawaban dikumpulkan otomatis.');
+        doSubmit(true);
+      }
+    }, 1000);
+
+    showScreen('screen-exam');
+    showToast('success', '🔄', 'Sesi dilanjutkan dari penyimpanan terakhir!');
+  } catch (err) {
+    setLoading(false);
+    showToast('error', '❌', `Gagal melanjutkan: ${err.message}`);
+  }
+}
+
 // ─── GLOSARIUM ───────────────────────────────────────────────────────────────
 function buildGlossary() {
   updateGlossaryBadge(state.glossary.length, state.glossary.length);
@@ -624,6 +746,7 @@ function renderGlossaryList(items, query) {
 // ─── KEMBALI KE HALAMAN LOGIN ─────────────────────────────────────────────────
 function backToLogin() {
   clearInterval(state.timerRef);
+  clearProgress();   // hapus progress saat kembali ke login
   Object.assign(state, {
     student   : { name:'', kelas:'' },
     questions : [],
@@ -638,5 +761,6 @@ function backToLogin() {
   $('input-kelas').value = '';
   $('login-error').classList.remove('show');
   $('exam-timer').classList.remove('warning');
+  checkSavedProgress();  // sembunyikan/tampilkan banner resume
   showScreen('screen-login');
 }
